@@ -2,8 +2,8 @@ namespace TutorAPI.Models
 {
     public enum UserType
     {
-        Student,
-        Tutor,
-        Admin
+        Student, // 0
+        Tutor,   // 1
+        Admin    // 2
     }
 }
