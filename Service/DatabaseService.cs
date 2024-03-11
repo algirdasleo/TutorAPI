@@ -7,11 +7,11 @@ namespace TutorAPI.Service
     public class DatabaseService : IDatabaseService
     {
         private readonly string _connectionString;
-
-        public DatabaseService(string connectionString)
+        public DatabaseService(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
+        
         public IDbConnection CreateConnection() =>
             new SqliteConnection(_connectionString);
     }
