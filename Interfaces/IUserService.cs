@@ -15,5 +15,6 @@ namespace TutorAPI.Interfaces
         Task<bool> IsUsernameTakenAsync(string username);
         Task<bool> IsEmailTakenAsync(string email);
         Task<bool> IsPhoneNumberTakenAsync(string phoneNumber);
+        Task<bool> ChangePasswordAsync(int id, string oldPassword, string newPassword);
     }
 }
