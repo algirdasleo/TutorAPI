@@ -37,7 +37,7 @@ namespace TutorAPI.Service
             }
         }
 
-        public async Task<int> UpdateUserAsync(User user)
+        public async Task<bool> UpdateUserAsync(User user)
         {
             using (var connection = _databaseService.CreateConnection())
             {
@@ -46,11 +46,12 @@ namespace TutorAPI.Service
                     UPDATE Users
                     SET Username = @Username, Password = @Password, Email = @Email, PhoneNumber = @PhoneNumber, UserType = @UserType
                     WHERE UserId = @UserId";
-                return await connection.ExecuteAsync(sqlQuery, user);
+                var changedRows = await connection.ExecuteAsync(sqlQuery, user);
+                return changedRows > 0;
             }
         }
 
-        public async Task<User> CreateUserAsync(User user)
+        public async Task<int> CreateUserAsync(User user)
         {
             using (var connection = _databaseService.CreateConnection())
             {
@@ -60,8 +61,7 @@ namespace TutorAPI.Service
                     VALUES (@Username, @Password, @Email, @PhoneNumber, @UserType, @RegistrationDate);
                     SELECT last_insert_rowid();";
                 int userId = await connection.ExecuteScalarAsync<int>(sqlQuery, user);
-                user.UserId = userId;
-                return user;
+                return userId;
             }
         }
         
