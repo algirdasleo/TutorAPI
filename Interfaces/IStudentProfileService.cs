@@ -6,8 +6,8 @@ namespace TutorAPI.Interfaces
         Task<List<StudentProfile>> GetStudentProfilesAsync();
         Task<StudentProfile> GetStudentProfileByProfileId(int profileId);
         Task<StudentProfile> GetStudentProfileByUserId(int userId);
-        Task<StudentProfile> AddStudentProfileAsync(StudentProfile studentProfile);
-        Task<StudentProfile> UpdateStudentProfileAsync(StudentProfile studentProfile);
-        Task DeleteStudentProfileAsync(int profileId);
+        Task<int> AddStudentProfileAsync(StudentProfile studentProfile);
+        Task<bool> UpdateStudentProfileAsync(StudentProfile studentProfile);
+        Task<bool> DeleteStudentProfileAsync(int profileId);
     }
 }

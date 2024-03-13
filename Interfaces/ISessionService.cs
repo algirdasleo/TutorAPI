@@ -6,9 +6,9 @@ namespace TutorAPI
         Task<Session> GetSessionByIdAsync(int sessionId);
         Task<List<Session>> GetSessionsByTutorProfileIdAsync(int tutorProfileId);
         Task<List<Session>> GetSessionsByStudentProfileIdAsync(int studentProfileId);
-        Task<Session> AddSessionAsync(Session session);
-        Task<Session> UpdateSessionAsync(Session session);
-        Task DeleteSessionAsync(int sessionId);
-        Task UpdateSessionStatusAsync(int sessionId, string status);
+        Task<int> AddSessionAsync(Session session);
+        Task<bool> UpdateSessionAsync(Session session);
+        Task<bool> DeleteSessionAsync(int sessionId);
+        Task<bool> UpdateSessionStatusAsync(int sessionId, string status);
     }
 }
