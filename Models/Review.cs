@@ -7,6 +7,7 @@ namespace TutorAPI.Models
         public string Comment { get; set; } = string.Empty;
         public int TutorId { get; set; }
         public int StudentId { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedAt { get; set; }
     }
 }
