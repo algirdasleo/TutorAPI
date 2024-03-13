@@ -17,7 +17,7 @@ namespace TutorAPI.Models
         [Required]
         [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Invalid Phone Number [Format: +1234567890)]")]
         public string PhoneNumber { get; set; } = string.Empty;
-        public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
         public UserType UserType { get; set; } // Enum: Student, Tutor, Admin
         
         // public bool isActive { get; set; }
