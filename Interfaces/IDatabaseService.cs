@@ -1,11 +1,9 @@
-using System.Data;
-using Microsoft.Data.Sqlite;
-using Dapper;
+using System.Data.Common;
 
 namespace TutorAPI.Interfaces
 {
     public interface IDatabaseService
     {
-        IDbConnection CreateConnection();
+        DbConnection CreateConnection();
     }
 }
