@@ -60,18 +60,19 @@ namespace TutorAPI.Service
                     UPDATE Subjects
                     SET Name = @Name, Description = @Description
                     WHERE SubjectId = @SubjectId";
-                int rowsAffected = await connection.ExecuteAsync(sqlQuery, subject);
-                return rowsAffected > 0;
+                int changedRows = await connection.ExecuteAsync(sqlQuery, subject);
+                return changedRows > 0;
             }
         }
+
         public async Task<bool> DeleteSubjectAsync(int id)
         {
             using (var connection = _databaseService.CreateConnection())
             {
                 await connection.OpenAsync();
                 string sqlQuery = "DELETE FROM Subjects WHERE SubjectId = @SubjectId";
-                int rowsAffected = await connection.ExecuteAsync(sqlQuery, new { SubjectId = id });
-                return rowsAffected > 0;
+                int changedRows = await connection.ExecuteAsync(sqlQuery, new { SubjectId = id });
+                return changedRows > 0;
             }
         }
     }
