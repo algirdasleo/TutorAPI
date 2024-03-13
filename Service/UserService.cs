@@ -4,7 +4,7 @@ using Dapper;
 
 namespace TutorAPI.Service
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IDatabaseService _databaseService;
         private readonly ILogger<UserService> _logger;
@@ -37,6 +37,19 @@ namespace TutorAPI.Service
             }
         }
 
+        public async Task<int> UpdateUserAsync(User user)
+        {
+            using (var connection = _databaseService.CreateConnection())
+            {
+                await connection.OpenAsync();
+                string sqlQuery = @"
+                    UPDATE Users
+                    SET Username = @Username, Password = @Password, Email = @Email, PhoneNumber = @PhoneNumber, UserType = @UserType
+                    WHERE UserId = @UserId";
+                return await connection.ExecuteAsync(sqlQuery, user);
+            }
+        }
+
         public async Task<User> CreateUserAsync(User user)
         {
             using (var connection = _databaseService.CreateConnection())
@@ -51,7 +64,15 @@ namespace TutorAPI.Service
                 return user;
             }
         }
-
         
+        public async Task<bool> DeleteUserAsync(int id)
+        {
+            using (var connection = _databaseService.CreateConnection())
+            {
+                await connection.OpenAsync();
+                string sqlQuery = "DELETE FROM Users WHERE UserId = @UserId";
+                return await connection.ExecuteAsync(sqlQuery, new { UserId = id }) > 0;
+            }
+        }
     }
 }
