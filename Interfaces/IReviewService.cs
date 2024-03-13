@@ -5,11 +5,11 @@ namespace TutorAPI.Interfaces
     public interface IReviewService
     {
         Task<List<Review>> GetReviewsAsync();
-        Task<Review> GetReviewByReviewId(int reviewId);
+        Task<Review?> GetReviewByReviewId(int reviewId);
         Task<List<Review>> GetReviewsByTutorId(int tutorId);
         Task<List<Review>> GetReviewsByStudentId(int studentId);
-        Task<Review> AddReviewAsync(Review review);
-        Task<Review> UpdateReviewAsync(Review review);
-        Task DeleteReviewAsync(int reviewId);
+        Task<int> AddReviewAsync(Review review);
+        Task<bool> UpdateReviewAsync(Review review);
+        Task<bool> DeleteReviewAsync(int reviewId);
     }
 }
