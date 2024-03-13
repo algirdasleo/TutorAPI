@@ -3,7 +3,7 @@ using TutorAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Tutor.Api.Controllers
+namespace TutorAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
