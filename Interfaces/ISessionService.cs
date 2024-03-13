@@ -3,7 +3,7 @@ namespace TutorAPI
 {
     public interface ISessionService
     {
-        Task<Session> GetSessionByIdAsync(int sessionId);
+        Task<Session?> GetSessionByIdAsync(int sessionId);
         Task<List<Session>> GetSessionsByTutorProfileIdAsync(int tutorProfileId);
         Task<List<Session>> GetSessionsByStudentProfileIdAsync(int studentProfileId);
         Task<int> AddSessionAsync(Session session);
