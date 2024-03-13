@@ -4,10 +4,10 @@ namespace TutorApi.Interfaces
 {
     public interface ISubjectService
     {
-        Task<IEnumerable<Subject>> GetAllSubjectsAsync();
-        Task<Subject> GetSubjectByIdAsync(int id);
-        Task<Subject> CreateSubjectAsync(Subject subject);
-        Task<int> UpdateSubjectAsync(Subject subject);
+        Task<List<Subject>> GetAllSubjectsAsync();
+        Task<Subject?> GetSubjectByIdAsync(int id);
+        Task<int> CreateSubjectAsync(Subject subject);
+        Task<bool> UpdateSubjectAsync(Subject subject);
         Task<bool> DeleteSubjectAsync(int id);
     }
 }
