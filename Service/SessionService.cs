@@ -25,25 +25,13 @@ namespace TutorAPI.Service
             }
         }
 
-        public async Task<List<Session>> GetSessionsByTutorProfileIdAsync(int tutorProfileId)
+        public async Task<List<Session>> GetSessionsByUserIdAsync(int userId)
         {
             using (var connection = _databaseService.CreateConnection())
             {
                 await connection.OpenAsync();
-                string sqlQuery = "SELECT * FROM Sessions WHERE TutorProfileId = @TutorProfileId";
-                var sessions = await connection.QueryAsync<Session>(sqlQuery, new { TutorProfileId = tutorProfileId });
-                return sessions.ToList();
-            }
-        }
-
-        public async Task<List<Session>> GetSessionsByStudentProfileIdAsync(int studentProfileId)
-        {
-            using (var connection = _databaseService.CreateConnection())
-            {
-                await connection.OpenAsync();
-                string sqlQuery = "SELECT * FROM Sessions WHERE StudentProfileId = @StudentProfileId";
-                var sessions = await connection.QueryAsync<Session>(sqlQuery, new { StudentProfileId = studentProfileId });
-                return sessions.ToList();
+                string sqlQuery = "SELECT * FROM Sessions WHERE TutorProfileId = @UserId OR StudentProfileId = @UserId";
+                return (await connection.QueryAsync<Session>(sqlQuery, new { UserId = userId })).ToList();
             }
         }
 
