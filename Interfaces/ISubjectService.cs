@@ -1,6 +1,6 @@
 using TutorAPI.Models;
 
-namespace TutorApi.Interfaces
+namespace TutorAPI.Interfaces
 {
     public interface ISubjectService
     {
