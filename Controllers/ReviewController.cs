@@ -54,6 +54,7 @@ namespace TutorAPI.Controllers
         public async Task<ActionResult> CreateReview(Review review)
         {
             var reviewId = await _reviewService.AddReviewAsync(review);
+            review.ReviewId = reviewId;
             var actionName = nameof(GetReviewById);
             var routeValues = new {reviewId = reviewId};
             return CreatedAtAction(actionName, routeValues, review);

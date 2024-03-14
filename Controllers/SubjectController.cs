@@ -36,6 +36,7 @@ namespace TutorAPI.Controllers
         public async Task<ActionResult> CreateSubject(Subject subject)
         {
             var subjectId = await _subjectService.CreateSubjectAsync(subject);
+            subject.SubjectId = subjectId;
             var actionName = nameof(GetSubjectById);
             var routeValues = new {id = subjectId};
             return CreatedAtAction(actionName, routeValues, subject);

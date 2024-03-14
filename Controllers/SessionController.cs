@@ -24,17 +24,10 @@ namespace TutorAPI.Controllers
             return Ok(session);
         }
         
-        [HttpGet("ByTutorProfileId/{tutorProfileId}")]
-        public async Task<ActionResult> GetSessionsByTutorProfileId(int tutorProfileId)
+        [HttpGet("ByUserId/{userId}")]
+        public async Task<ActionResult> GetSessionsByUserId(int userId)
         {
-            var sessions = await _sessionService.GetSessionsByTutorProfileIdAsync(tutorProfileId);
-            return Ok(sessions);
-        }
-        
-        [HttpGet("ByStudentProfileId/{studentProfileId}")]
-        public async Task<ActionResult> GetSessionsByStudentProfileId(int studentProfileId)
-        {
-            var sessions = await _sessionService.GetSessionsByStudentProfileIdAsync(studentProfileId);
+            var sessions = await _sessionService.GetSessionsByUserIdAsync(userId);
             return Ok(sessions);
         }
         
@@ -42,6 +35,7 @@ namespace TutorAPI.Controllers
         public async Task<ActionResult> AddSession(Session session)
         {
             var sessionId = await _sessionService.AddSessionAsync(session);
+            session.SessionId = sessionId;
             var actionName = nameof(GetSessionById);
             var routeValues = new {sessionId = sessionId};
             return CreatedAtAction(actionName, routeValues, session);
