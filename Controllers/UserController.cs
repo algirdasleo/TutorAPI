@@ -36,6 +36,7 @@ namespace TutorAPI.Controllers
         public async Task<IActionResult> CreateUser(User user)
         {
             var userId = await _userService.CreateUserAsync(user);
+            user.UserId = userId;
             var actionName = nameof(GetUserById);
             var routeValues = new { id = userId };
             return CreatedAtAction(actionName, routeValues, user);
