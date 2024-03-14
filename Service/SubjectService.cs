@@ -1,7 +1,6 @@
 using TutorAPI.Interfaces;
 using TutorAPI.Models;
 using Dapper;
-using TutorApi.Interfaces;
 
 namespace TutorAPI.Service
 {

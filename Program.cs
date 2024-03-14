@@ -3,7 +3,6 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 using TutorAPI.Interfaces;
 using TutorAPI.Service;
-using TutorApi.Interfaces;
 using TutorAPI;
 
 var builder = WebApplication.CreateBuilder(args);
