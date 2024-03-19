@@ -4,6 +4,6 @@ namespace TutorAPI.Interfaces
 {
     public interface IDatabaseService
     {
-        DbConnection CreateConnection();
+        Task<DbConnection> CreateConnection();
     }
 }
