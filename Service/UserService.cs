@@ -17,9 +17,8 @@ namespace TutorAPI.Service
 
         public async Task<List<User>> GetAllUsersAsync()
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Users";
                 var users = await connection.QueryAsync<User>(sqlQuery);
                 return users.ToList();
@@ -28,9 +27,8 @@ namespace TutorAPI.Service
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Users WHERE UserId = @UserId";
                 var user = await connection.QueryFirstOrDefaultAsync<User>(sqlQuery, new { UserId = id });
                 return user;
@@ -39,9 +37,8 @@ namespace TutorAPI.Service
 
         public async Task<bool> UpdateUserAsync(User user)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     UPDATE Users
                     SET Username = @Username, Password = @Password, Email = @Email, PhoneNumber = @PhoneNumber, UserType = @UserType
@@ -53,9 +50,8 @@ namespace TutorAPI.Service
 
         public async Task<int> CreateUserAsync(User user)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     INSERT INTO Users (Username, Password, Email, PhoneNumber, UserType, RegistrationDate)
                     VALUES (@Username, @Password, @Email, @PhoneNumber, @UserType, @RegistrationDate);
@@ -67,9 +63,8 @@ namespace TutorAPI.Service
         
         public async Task<bool> DeleteUserAsync(int id)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "DELETE FROM Users WHERE UserId = @UserId";
                 return await connection.ExecuteAsync(sqlQuery, new { UserId = id }) > 0;
             }

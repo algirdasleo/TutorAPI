@@ -15,9 +15,8 @@ namespace TutorAPI.Service
 
         public async Task<List<Profile>> GetAllProfilesAsync()
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 var profiles = await connection.QueryAsync<Profile>("SELECT * FROM Profiles");
                 return profiles.ToList();
             }
@@ -25,9 +24,8 @@ namespace TutorAPI.Service
 
         public async Task<Profile?> GetProfileByIdAsync(int profileId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Profiles WHERE ProfileId = @ProfileId";
                 var profile = await connection.QueryFirstOrDefaultAsync<Profile>(sqlQuery, new {ProfileId = profileId});
                 return profile;
@@ -36,9 +34,8 @@ namespace TutorAPI.Service
 
         public async Task<int> CreateProfileAsync(Profile profile)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     INSERT INTO Profiles (UserId, Description, Grade, Price, Qualifications)
                     VALUES (@UserId, @Description, @Grade, @Price, @Qualifications);
@@ -50,9 +47,8 @@ namespace TutorAPI.Service
 
         public async Task<bool> UpdateProfileAsync(Profile updatedProfile)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                 UPDATE Profiles
                 SET FirstName = @FirstName, LastName = @LastName, Email = @Email, 
@@ -65,9 +61,8 @@ namespace TutorAPI.Service
 
         public async Task<bool> DeleteProfileAsync(int profileId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "DELETE FROM Profiles WHERE ProfileId = @ProfileId";
                 var changedRows = await connection.ExecuteAsync(sqlQuery, new {ProfileId = profileId});
                 return changedRows > 0;

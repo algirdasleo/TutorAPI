@@ -14,6 +14,11 @@ namespace TutorAPI.Service
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public DbConnection CreateConnection() => new SqliteConnection(_connectionString);
+        public async Task<DbConnection> CreateConnection()
+        {
+            var connection = new SqliteConnection(_connectionString);
+            await connection.OpenAsync();
+            return connection;
+        }
     }
 }

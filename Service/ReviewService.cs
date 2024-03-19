@@ -15,18 +15,16 @@ namespace TutorAPI.Service
         }
         public async Task<List<Review>> GetReviewsAsync()
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();                                               // Naudojamas .OpenAsync() vietoj .Open(), kad veiktų asynchronously ir neblokuotų kitų procesų
                 var reviews = await connection.QueryAsync<Review>("SELECT * FROM Reviews"); // QueryAsync<T> gražina IEnumerable<T>
                 return reviews.ToList();
             }
         }
         public async Task<Review?> GetReviewByReviewId(int reviewId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Reviews WHERE ReviewId = @ReviewId";
                 var review = await connection.QueryFirstOrDefaultAsync<Review>(sqlQuery, new {ReviewId = reviewId});
                 if (review == null)
@@ -36,9 +34,8 @@ namespace TutorAPI.Service
         }
         public async Task<List<Review>> GetReviewsByTutorId(int tutorId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Reviews WHERE TutorId = @TutorId";
                 var reviews = await connection.QueryAsync<Review>(sqlQuery, new {TutorId = tutorId});
                 if (!reviews.Any())
@@ -48,9 +45,8 @@ namespace TutorAPI.Service
         }
         public async Task<List<Review>> GetReviewsByStudentId(int studentId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Reviews WHERE StudentId = @StudentId";
                 var reviews = await connection.QueryAsync<Review>(sqlQuery, new {StudentId = studentId});
                 return reviews.ToList();
@@ -59,9 +55,8 @@ namespace TutorAPI.Service
 
         public async Task<int> AddReviewAsync(Review review)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     INSERT INTO Reviews (Rating, Comment, TutorId, StudentId, CreatedAt)
                     VALUES (@Rating, @Comment, @TutorId, @StudentId, @CreatedAt);
@@ -72,9 +67,8 @@ namespace TutorAPI.Service
         }
         public async Task<bool> UpdateReviewAsync(Review review)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     UPDATE Reviews
                     SET Rating = @Rating, Comment = @Comment, 
@@ -88,9 +82,8 @@ namespace TutorAPI.Service
         }
         public async Task<bool> DeleteReviewAsync(int reviewId)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     DELETE FROM Reviews
                     WHERE ReviewId = @ReviewId";

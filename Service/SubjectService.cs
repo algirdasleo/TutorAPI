@@ -16,9 +16,8 @@ namespace TutorAPI.Service
 
         public async Task<List<Subject>> GetAllSubjectsAsync()
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Subjects";
                 var subjects = await connection.QueryAsync<Subject>(sqlQuery);
                 return subjects.ToList();
@@ -27,9 +26,8 @@ namespace TutorAPI.Service
 
         public async Task<Subject?> GetSubjectByIdAsync(int id)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "SELECT * FROM Subjects WHERE SubjectId = @SubjectId";
                 var subject = await connection.QueryFirstOrDefaultAsync<Subject>(sqlQuery, new { SubjectId = id });
                 return subject;
@@ -38,9 +36,8 @@ namespace TutorAPI.Service
 
         public async Task<int> CreateSubjectAsync(Subject subject)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     INSERT INTO Subjects (Name, Description)
                     VALUES (@Name, @Description);
@@ -52,9 +49,8 @@ namespace TutorAPI.Service
 
         public async Task<bool> UpdateSubjectAsync(Subject subject)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = @"
                     UPDATE Subjects
                     SET Name = @Name, Description = @Description
@@ -66,9 +62,8 @@ namespace TutorAPI.Service
 
         public async Task<bool> DeleteSubjectAsync(int id)
         {
-            using (var connection = _databaseService.CreateConnection())
+            using (var connection = await _databaseService.CreateConnection())
             {
-                await connection.OpenAsync();
                 string sqlQuery = "DELETE FROM Subjects WHERE SubjectId = @SubjectId";
                 int changedRows = await connection.ExecuteAsync(sqlQuery, new { SubjectId = id });
                 return changedRows > 0;
