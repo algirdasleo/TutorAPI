@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-
+using TutorAPI.Enums;
 namespace TutorAPI.Models
 {
     public class User
