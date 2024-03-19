@@ -2,8 +2,8 @@ namespace TutorAPI.Models
 {
     public class Availability
     {
-        public int AvailabilityId { get; set; }
-        public int TutorProfileId { get; set; }
+        public int? AvailabilityId { get; set; }
+        public int? TutorProfileId { get; set; }
         public Profile TutorProfile { get; set; }  = null!;
         public DateTime Start { get; set; }
         public DateTime End { get; set; }

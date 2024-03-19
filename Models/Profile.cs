@@ -3,9 +3,9 @@ namespace TutorAPI.Models
 {
 public class Profile
     {
-        public int ProfileId { get; set; }
+        public int? ProfileId { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string? Description { get; set; }
         public List<Subject>? Subjects { get; set; }
         public List<Session>? Sessions { get; set; }
